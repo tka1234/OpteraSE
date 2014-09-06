@@ -1,6 +1,5 @@
-//Changes Since 1.0a: Added Support for Keypresses, Added Antialiasing Switch
-import java.awt.*; import java.awt.geom.Line2D; import java.awt.image.*; import java.util.ArrayList;
-import javax.swing.*;
+//Changes Since 1.1b: Added Buttons and Added Rotational Pictures
+import java.awt.*; import java.awt.geom.Line2D; import java.awt.image.*; import java.util.ArrayList; import javax.swing.*;
 public class Graphics extends JFrame{
 	private static final long serialVersionUID = 1L;
 	public static boolean AntiAliasingOn = false;
@@ -12,7 +11,7 @@ public class Graphics extends JFrame{
 	public static int userMouseX, userMouseY;
 	public static ArrayList<String> keysdown = new ArrayList<String>();
 	
-	public static String LastUpdate = "1.1b 9-4-2014";
+	public static String LastUpdate = "1.1c 9-6-2014";
 	
 	public Graphics() {
 		super("Optera");
@@ -39,8 +38,7 @@ public class Graphics extends JFrame{
 		drawing.addMouseListener(mouseFunction);
 		drawing.addMouseMotionListener(mouseFunction);
 		myKeyListener keyFunction = new myKeyListener();
-		drawing.addKeyListener(keyFunction);
-		}
+		drawing.addKeyListener(keyFunction); }
 	
 	public static void drawLine(double x1, double y1, double x2, double y2) {image.draw(new Line2D.Double(x1, y1, x2, y2)); }
 	
@@ -103,8 +101,20 @@ public class Graphics extends JFrame{
 		Image createdImage = new ImageIcon(fname).getImage();
 		image.drawImage(createdImage, (int) Math.round(xPos), (int) Math.round(yPos), (int) Math.round(createdImage.getWidth(null) * scale), (int) Math.round(createdImage.getHeight(null) * scale), null); }
 	
+	/**Draw a picture to the display, rotated to degrees degrees.**/
+	public static void drawPic(double xPos, double yPos, double scale, String fname, double degrees) {
+		Image createdImage = new ImageIcon(fname).getImage();
+		image.rotate(degrees * (Math.PI / 180), xPos + ((createdImage.getWidth(null) * scale) / 2), yPos + ((createdImage.getHeight(null) * scale) / 2));
+		image.drawImage(createdImage, (int) Math.round(xPos), (int) Math.round(yPos), (int) Math.round(createdImage.getWidth(null) * scale), (int) Math.round(createdImage.getHeight(null) * scale), null);
+		image.rotate(degrees * -1 * (Math.PI / 180), xPos + ((createdImage.getWidth(null) * scale) / 2), yPos + ((createdImage.getHeight(null) * scale) / 2)); }
+	
 	/**Change State of Antialiasing**/
 	public static void switchAliasing(boolean state) {AntiAliasingOn = state; }
+	
+	/**Effectively creates a clickable button in the range defined by x1, x2, y1, y2**/
+	public static boolean RangePressed(int x1, int y1, int x2, int y2) {
+		if (mousePressed && userMouseX > x1 && userMouseX < x2 && userMouseY > y1 && userMouseY < y2) return true;
+		else return false; }
 	
 	public static void main(String args[]) throws InterruptedException {
 		x = new Graphics();
