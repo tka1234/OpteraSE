@@ -11,6 +11,9 @@ public class Bounce {
 		YVals.add(0);
 		VXVals.add(2);
 		VYVals.add(2);
+		
+		int frameCount = 0, stTime = 0, fps = 0;
+		
 		while (true) {
 			for(int i = 0; i < XVals.size(); i++) {
 				Graphics.drawPic(XVals.get(i), YVals.get(i), 0.5, "FANCEE.jpg");
@@ -20,6 +23,7 @@ public class Bounce {
 				YVals.set(i, YVals.get(i) + VYVals.get(i));
 				if (YVals.get(i) > 519) VYVals.set(i, -2);
 				if (YVals.get(i) < 0) VYVals.set(i, 2); }
+			//if (Graphics.RangePressed(0, 0, 50, 50)) {
 			//if (Graphics.keysdown.contains(" ")) {
 			if (true) {
 				XVals.add((int) Math.floor(Math.random() * 980));
@@ -27,6 +31,14 @@ public class Bounce {
 				VXVals.add(2);
 				VYVals.add(2); }
 			Graphics.writeString(900, 680, 2, "NUMBER OF STUFF " + XVals.size());
+			
+			frameCount++;
+			if (((int) System.currentTimeMillis()) > (stTime + 1000)) {
+				stTime = (int) System.currentTimeMillis();
+				fps = frameCount;
+				frameCount = 0; }
+			Graphics.writeString(1150, 580, 2, fps + " FPS");
+			
 			Graphics.makeImage();
 			Thread.sleep(15);
 			Graphics.clearScreen(Color.WHITE);
