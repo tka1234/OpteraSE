@@ -1,4 +1,4 @@
-//Changes Since 1.1b: Added Buttons and Added Rotational Pictures
+//Changes Since 1.1c: 
 import java.awt.*; import java.awt.geom.Line2D; import java.awt.image.*; import java.util.ArrayList; import javax.swing.*;
 public class Graphics extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -11,7 +11,7 @@ public class Graphics extends JFrame{
 	public static int userMouseX, userMouseY;
 	public static ArrayList<String> keysdown = new ArrayList<String>();
 	
-	public static String LastUpdate = "1.1c 9-6-2014";
+	public static String LastUpdate = "1.1d 9-6-2014";
 	
 	public Graphics() {
 		super("Optera");
